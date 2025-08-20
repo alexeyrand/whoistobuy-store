@@ -1,0 +1,21 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: whoistobuy-items
+
+  datasource:
+    url: jdbc:postgresql://service-db:5430/witb
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: postgres
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql:
