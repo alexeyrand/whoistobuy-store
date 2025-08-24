@@ -53,19 +53,18 @@ public class PublicationService extends BaseService<Publication> {
         Publication publication = new Publication();
         publication.setUserId(user.getId());
         publication.setItemId(item.getId());
-//        publication.setPublicationState(PublicationState.REVIEW);
-        finalStateMachine.transfer(publication, PublicationAction.CREATE);
+        finalStateMachine.moveToState(publication, PublicationAction.CREATE);
         witbHttpClient.sendMessage("http://whoistobuy-telegram:8085/api/v1/telegram-notification/");
         this.save(publication);
         return publication;
     }
 
     /**
-     * Покупка товара через публикацию пользователем. Публикация приобретает статус "Продано/SOLD_OUT".
+     * Покупка товара через публикацию пользователем. Публикация приобретает статус "Продано/SOLD".
      */
     public Publication buyItemByPublicationId(Long id) {
         Publication publication = this.findById(id);
-        publication.setPublicationState(PublicationState.SOLD_OUT);
+        publication.setPublicationState(PublicationState.SOLD);
         return publication;
     }
 
