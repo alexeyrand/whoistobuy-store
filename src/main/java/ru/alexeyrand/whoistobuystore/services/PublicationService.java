@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.alexeyrand.whoistobuybase.entities.User;
+import ru.alexeyrand.whoistobuybase.fsm.FinalStateMachine;
 import ru.alexeyrand.whoistobuybase.repositories.BaseRepository;
 import ru.alexeyrand.whoistobuybase.rest.WitbHttpClient;
 import ru.alexeyrand.whoistobuybase.services.BaseService;
@@ -13,6 +14,7 @@ import ru.alexeyrand.whoistobuystore.entities.History;
 import ru.alexeyrand.whoistobuystore.entities.Item;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.HistoryType;
+import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
 import ru.alexeyrand.whoistobuystore.repositories.PublicationRepository;
 
@@ -22,6 +24,8 @@ import ru.alexeyrand.whoistobuystore.repositories.PublicationRepository;
 @Service
 @RequiredArgsConstructor
 public class PublicationService extends BaseService<Publication> {
+
+    private final   FinalStateMachine<PublicationState, PublicationAction, Publication> finalStateMachine;
 
     @PostConstruct
     private void createUser() {
@@ -49,7 +53,8 @@ public class PublicationService extends BaseService<Publication> {
         Publication publication = new Publication();
         publication.setUserId(user.getId());
         publication.setItemId(item.getId());
-        publication.setPublicationState(PublicationState.REVIEW);
+//        publication.setPublicationState(PublicationState.REVIEW);
+        finalStateMachine.transfer(publication, PublicationAction.CREATE);
         witbHttpClient.sendMessage("http://whoistobuy-telegram:8085/api/v1/telegram-notification/");
         this.save(publication);
         return publication;

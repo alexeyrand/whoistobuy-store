@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class PublicationStateMachineFactory extends BaseStateMachineFactory<PublicationState, PublicationAction, Publication> {
-    Map<PublicationState, List<PublicationAction>> actionStatusMap;
+    private final Map<PublicationState, List<PublicationAction>> actionStatusMap;
 
     public PublicationStateMachineFactory() {
         actionStatusMap = createActionMap();
@@ -29,11 +29,15 @@ public class PublicationStateMachineFactory extends BaseStateMachineFactory<Publ
         state3.setState(PublicationState.DELETED);
         State<PublicationState, PublicationAction> state4 = new State<>();
         state4.setState(PublicationState.REVIEW);
-
         state2.setNodes(List.of(state3, state4));
 
-        state1.setNodes(List.of(state2));
-        finalStateMachine.setState(state1);
+        State<PublicationState, PublicationAction> state5 = new State<>();
+        state5.setState(PublicationState.REVIEW);
+
+        state1.setNodes(List.of(state5, state2));
+
+        finalStateMachine.setHead(state1);
+        finalStateMachine.setActionMap(createActionMap());
         return finalStateMachine;
     }
 

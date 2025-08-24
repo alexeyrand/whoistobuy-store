@@ -49,6 +49,6 @@ public class Publication extends BaseEntity implements Stateful<PublicationState
 
     @Override
     public PublicationState getCurrentState() {
-        return null;
+        return publicationState;
     }
 }

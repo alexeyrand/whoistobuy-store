@@ -3,7 +3,6 @@ package ru.alexeyrand.whoistobuystore.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.alexeyrand.whoistobuybase.fsm.FinalStateMachine;
-import ru.alexeyrand.whoistobuybase.fsm.State;
 import ru.alexeyrand.whoistobuybase.rest.WitbHttpClient;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
