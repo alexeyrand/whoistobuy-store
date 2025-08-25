@@ -18,28 +18,23 @@ import java.util.List;
 public enum PublicationState implements StateWithAction<PublicationAction> {
 
     IDLE(),
-    DRAFT(List.of(PublicationAction.CREATE, PublicationAction.DELETE)),
-    REVIEW(List.of(PublicationAction.REJECT, PublicationAction.PUBLISH, PublicationAction.DELETE)),
-    REJECTED(List.of(PublicationAction.EDIT, PublicationAction.DELETE)),
-    PUBLISHED(List.of(PublicationAction.RESERVE, PublicationAction.PAY, PublicationAction.ARCHIVE, PublicationAction.DELETE)),
-    RESERVED(List.of(PublicationAction.PAY, PublicationAction.DELETE)),
-    ARCHIVED(List.of(PublicationAction.DELETE)),
-    AWAITING_PAYMENT(List.of(PublicationAction.CONFIRM, PublicationAction.DELETE)),
-    AWAITING_CONFIRMATION(List.of(PublicationAction.SEND, PublicationAction.EXCHANGE, PublicationAction.DELETE)),
-    AWAITING_EXCHANGE(List.of(PublicationAction.COMPLETION, PublicationAction.CANCEL, PublicationAction.DELETE)),
-    AWAITING_DELIVERY(List.of(PublicationAction.COMPLETION, PublicationAction.CANCEL, PublicationAction.DELETE)),
-    CANCELED(List.of(PublicationAction.PUBLISH, PublicationAction.DELETE)),
-    SOLD(List.of(PublicationAction.DELETE)),
-    DELETED(List.of());
+    DRAFT(),
+    REVIEW(),
+    REJECTED(),
+    PUBLISHED(),
+    RESERVED(),
+    ARCHIVED(),
+    AWAITING_PAYMENT(),
+    AWAITING_CONFIRMATION(),
+    AWAITING_EXCHANGE(),
+    AWAITING_DELIVERY(),
+    CANCELED(),
+    SOLD(),
+    DELETED();
 
     private List<PublicationAction> publicationActionList;
 
     PublicationState() {
-
-    }
-
-    PublicationState(List<PublicationAction> publicationActionList) {
-        this.publicationActionList = publicationActionList;
     }
 
     @Override
@@ -49,6 +44,6 @@ public enum PublicationState implements StateWithAction<PublicationAction> {
 
     @Override
     public void setActionList(List<PublicationAction> actionList) {
-
+        this.publicationActionList = actionList;
     }
 }

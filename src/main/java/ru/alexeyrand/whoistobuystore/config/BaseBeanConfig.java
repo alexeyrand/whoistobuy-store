@@ -7,6 +7,7 @@ import ru.alexeyrand.whoistobuybase.rest.WitbHttpClient;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
+import ru.alexeyrand.whoistobuystore.fsm.InitializationPublicationStateAndAction;
 import ru.alexeyrand.whoistobuystore.fsm.PublicationStateMachineFactory;
 
 
@@ -21,7 +22,8 @@ public class BaseBeanConfig {
 
     @Bean
     public FinalStateMachine<PublicationState, PublicationAction, Publication> publicationStateMachine() {
-        PublicationStateMachineFactory factory = new PublicationStateMachineFactory();
+        InitializationPublicationStateAndAction initializationPublicationStateAndAction = new InitializationPublicationStateAndAction();
+        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(initializationPublicationStateAndAction);
         return factory.createStateMachine();
     }
 

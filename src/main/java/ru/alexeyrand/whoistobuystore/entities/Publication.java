@@ -43,12 +43,12 @@ public class Publication extends BaseEntity implements Stateful<PublicationState
     private Date deletedAt;
 
     @Override
-    public void setCurrentState(PublicationState state) {
-
+    public void setState(PublicationState state) {
+        this.publicationState = state;
     }
 
     @Override
-    public PublicationState getCurrentState() {
+    public PublicationState getState() {
         return publicationState;
     }
 }

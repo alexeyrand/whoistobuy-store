@@ -7,8 +7,6 @@ import ru.alexeyrand.whoistobuybase.fsm.FinalStateMachine;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
-import ru.alexeyrand.whoistobuystore.enums.TestEnum;
-import ru.alexeyrand.whoistobuystore.enums.TestEnum2;
 import ru.alexeyrand.whoistobuystore.fsm.InitializationPublicationStateAndAction;
 import ru.alexeyrand.whoistobuystore.fsm.PublicationStateMachineFactory;
 
@@ -18,16 +16,10 @@ public class FinalStateMachineTest {
     public void helperTest() {
         Publication publication = new Publication();
         publication.setPublicationState(PublicationState.RESERVED);
-        InitializationPublicationStateAndAction init = new InitializationPublicationStateAndAction();
-        init.init();
-        TestEnum s = TestEnum.A;
-        TestEnum2 s2 = TestEnum2.AA;
-        PublicationState b = PublicationState.AWAITING_PAYMENT;
-        PublicationAction as = PublicationAction.EDIT;
-        PublicationStateMachineFactory factory = new PublicationStateMachineFactory();
+        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(new InitializationPublicationStateAndAction());
         FinalStateMachine<PublicationState, PublicationAction, Publication> fsm = factory.createStateMachine();
         Publication res = fsm.moveToState(publication, PublicationAction.PAY);
-        Assertions.assertEquals(res.getCurrentState(), PublicationState.AWAITING_PAYMENT);
+        Assertions.assertEquals(res.getState(), PublicationState.AWAITING_PAYMENT);
 
     }
 }
