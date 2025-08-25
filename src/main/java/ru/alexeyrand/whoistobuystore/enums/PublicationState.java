@@ -17,7 +17,7 @@ import java.util.List;
  */
 public enum PublicationState implements StateWithAction<PublicationAction> {
 
-    IDLE(List.of(PublicationAction.EDIT)),
+    IDLE(),
     DRAFT(List.of(PublicationAction.CREATE, PublicationAction.DELETE)),
     REVIEW(List.of(PublicationAction.REJECT, PublicationAction.PUBLISH, PublicationAction.DELETE)),
     REJECTED(List.of(PublicationAction.EDIT, PublicationAction.DELETE)),
@@ -32,7 +32,11 @@ public enum PublicationState implements StateWithAction<PublicationAction> {
     SOLD(List.of(PublicationAction.DELETE)),
     DELETED(List.of());
 
-    private final List<PublicationAction> publicationActionList;
+    private List<PublicationAction> publicationActionList;
+
+    PublicationState() {
+
+    }
 
     PublicationState(List<PublicationAction> publicationActionList) {
         this.publicationActionList = publicationActionList;
@@ -41,5 +45,10 @@ public enum PublicationState implements StateWithAction<PublicationAction> {
     @Override
     public List<PublicationAction> getActionList() {
         return publicationActionList;
+    }
+
+    @Override
+    public void setActionList(List<PublicationAction> actionList) {
+
     }
 }

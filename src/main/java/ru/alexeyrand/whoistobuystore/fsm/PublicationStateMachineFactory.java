@@ -20,7 +20,8 @@ public class PublicationStateMachineFactory extends BaseStateMachineFactory<Publ
 
     @Override
     public FinalStateMachine<PublicationState, PublicationAction, Publication> createStateMachine() {
-        FinalStateMachine<PublicationState, PublicationAction, Publication> finalStateMachine = new FinalStateMachine<>();
+        InitializationPublicationStateAndAction initializationPublicationStateAndAction = new InitializationPublicationStateAndAction();
+        FinalStateMachine<PublicationState, PublicationAction, Publication> finalStateMachine = new FinalStateMachine<>(initializationPublicationStateAndAction);
         State<PublicationState, PublicationAction> state1 = new State<>();
         State<PublicationState, PublicationAction> state2 = new State<>();
         State<PublicationState, PublicationAction> state3 = new State<>();

@@ -9,6 +9,7 @@ import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
 import ru.alexeyrand.whoistobuystore.enums.TestEnum;
 import ru.alexeyrand.whoistobuystore.enums.TestEnum2;
+import ru.alexeyrand.whoistobuystore.fsm.InitializationPublicationStateAndAction;
 import ru.alexeyrand.whoistobuystore.fsm.PublicationStateMachineFactory;
 
 public class FinalStateMachineTest {
@@ -17,6 +18,8 @@ public class FinalStateMachineTest {
     public void helperTest() {
         Publication publication = new Publication();
         publication.setPublicationState(PublicationState.RESERVED);
+        InitializationPublicationStateAndAction init = new InitializationPublicationStateAndAction();
+        init.init();
         TestEnum s = TestEnum.A;
         TestEnum2 s2 = TestEnum2.AA;
         PublicationState b = PublicationState.AWAITING_PAYMENT;

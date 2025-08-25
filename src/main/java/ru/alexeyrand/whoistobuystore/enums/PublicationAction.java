@@ -24,12 +24,14 @@ public enum PublicationAction implements ActionWithState<PublicationState> {
         this.publicationState = publicationState;
     }
 
-    public void setStatus(PublicationState publicationState) {
-        this.publicationState = publicationState;
-    }
     @Override
     public PublicationState getState() {
         return publicationState;
+    }
+
+    @Override
+    public void setState(PublicationState state) {
+        this.publicationState = state;
     }
 //
 //    static {
