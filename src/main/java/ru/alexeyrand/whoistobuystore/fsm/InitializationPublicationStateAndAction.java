@@ -1,11 +1,13 @@
 package ru.alexeyrand.whoistobuystore.fsm;
 
+import org.springframework.stereotype.Component;
 import ru.alexeyrand.whoistobuybase.fsm.InitializationStateAndAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
 
 import java.util.List;
 
+@Component
 public class InitializationPublicationStateAndAction implements InitializationStateAndAction {
     @Override
     public void init() {

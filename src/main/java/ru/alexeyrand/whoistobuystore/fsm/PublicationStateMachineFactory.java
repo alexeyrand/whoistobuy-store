@@ -1,6 +1,5 @@
 package ru.alexeyrand.whoistobuystore.fsm;
 
-import org.hibernate.graph.Graph;
 import ru.alexeyrand.whoistobuybase.fsm.BaseStateMachineFactory;
 import ru.alexeyrand.whoistobuybase.fsm.FinalStateMachine;
 import ru.alexeyrand.whoistobuybase.fsm.InitializationStateAndAction;
@@ -14,14 +13,12 @@ import java.util.Map;
 
 public class PublicationStateMachineFactory extends BaseStateMachineFactory<PublicationState, PublicationAction, Publication> {
 
-
     public PublicationStateMachineFactory(InitializationStateAndAction initializationStateAndAction) {
         super(initializationStateAndAction);
     }
 
     @Override
     public FinalStateMachine<PublicationState, PublicationAction, Publication> createStateMachine() {
-//        InitializationPublicationStateAndAction initializationPublicationStateAndAction = new InitializationPublicationStateAndAction();
         FinalStateMachine<PublicationState, PublicationAction, Publication> finalStateMachine = new FinalStateMachine<>();
         State<PublicationState, PublicationAction> state1 = new State<>();
         State<PublicationState, PublicationAction> state2 = new State<>();

@@ -19,10 +19,9 @@ public class BaseBeanConfig {
         return new WitbHttpClient();
     }
 
-
     @Bean
-    public FinalStateMachine<PublicationState, PublicationAction, Publication> publicationStateMachine() {
-        InitializationPublicationStateAndAction initializationPublicationStateAndAction = new InitializationPublicationStateAndAction();
+    public FinalStateMachine<PublicationState, PublicationAction, Publication> publicationStateMachine(
+            InitializationPublicationStateAndAction initializationPublicationStateAndAction) {
         PublicationStateMachineFactory factory = new PublicationStateMachineFactory(initializationPublicationStateAndAction);
         return factory.createStateMachine();
     }
