@@ -9,7 +9,6 @@ import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
 
 import java.util.List;
-import java.util.Map;
 
 public class PublicationStateMachineFactory extends BaseStateMachineFactory<PublicationState, PublicationAction, Publication> {
 
@@ -62,20 +61,7 @@ public class PublicationStateMachineFactory extends BaseStateMachineFactory<Publ
         state1.setActions(List.of(PublicationAction.EDIT));
 
         finalStateMachine.setHead(state1);
-        finalStateMachine.setActionMap(createActionMap());
         return finalStateMachine;
     }
-//
-    @Override
-    public Map<PublicationState, List<PublicationAction>> createActionMap() {
-        return null;
-//        return Map.of(
-//                PublicationState.DRAFT, List.of(PublicationAction.DELETE, PublicationAction.CREATE),
-//                PublicationState.REVIEW, List.of(PublicationAction.DELETE, PublicationAction.REJECT, PublicationAction.PUBLISH),
-//                PublicationState.REJECTED, List.of(PublicationAction.DELETE, PublicationAction.EDIT),
-//                PublicationState.PUBLISHED, List.of(PublicationAction.DELETE, PublicationAction.BUY, PublicationAction.ARCHIVE),
-//                PublicationState.SOLD, List.of(PublicationAction.DELETE, PublicationAction.ARCHIVE),
-//                PublicationState.ARCHIVED, List.of(PublicationAction.DELETE, PublicationAction.CREATE)
-//        );
-    }
+
 }

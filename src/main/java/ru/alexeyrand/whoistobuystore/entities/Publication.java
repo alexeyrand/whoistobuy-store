@@ -28,7 +28,7 @@ public class Publication extends BaseEntity implements Stateful<PublicationState
 
     @Column(name = "PUBLISH_STATUS")
     @Enumerated(EnumType.STRING)
-    private PublicationState publicationState;
+    private PublicationState publicationState = PublicationState.IDLE;
 
     @Column(name = "SOLD")
     private Boolean sold;

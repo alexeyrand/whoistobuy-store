@@ -43,6 +43,12 @@ public class PublicationRestController extends BaseRestController<Publication> {
         return ResponseEntity.ok().body(publication);
     }
 
+    @GetMapping("/draft/{username}")
+    public ResponseEntity<Publication> draftPublication(@PathVariable String username) {
+        Publication publication = publicationService.draftPublication(username);
+        return ResponseEntity.ok().body(publication);
+    }
+
     @Override
     public BaseService<Publication> getService() {
         return publicationService;

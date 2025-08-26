@@ -25,7 +25,7 @@ public class InitializationPublicationStateAndAction implements InitializationSt
         PublicationAction.ARCHIVE.setState(PublicationState.ARCHIVED);
         PublicationAction.DELETE.setState(PublicationState.DELETED);
 
-        PublicationState.IDLE.setActionList(List.of());
+        PublicationState.IDLE.setActionList(List.of(PublicationAction.EDIT));
         PublicationState.DRAFT.setActionList(List.of(PublicationAction.CREATE, PublicationAction.DELETE));
         PublicationState.REVIEW.setActionList(List.of(PublicationAction.REJECT, PublicationAction.PUBLISH, PublicationAction.DELETE));
         PublicationState.REJECTED.setActionList(List.of(PublicationAction.EDIT, PublicationAction.DELETE));

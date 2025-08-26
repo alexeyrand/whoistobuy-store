@@ -6,7 +6,8 @@ spring:
     name: whoistobuy-items
 
   datasource:
-    url: jdbc:postgresql://service-db:5430/witb
+#    url: jdbc:postgresql://service-db:5430/witb
+    url: jdbc:postgresql://localhost:5432/witb
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: postgres

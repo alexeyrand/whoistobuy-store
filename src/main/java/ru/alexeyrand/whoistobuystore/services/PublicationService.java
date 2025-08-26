@@ -35,6 +35,10 @@ public class PublicationService extends BaseService<Publication> {
         user.setUsername("Chichilipa");
         user.setAge(12);
         userService.save(user);
+
+        Publication publication = new Publication();
+        publication.setUserId(user.getId());
+        this.save(publication);
     }
 
     private final PublicationRepository publicationRepository;
@@ -53,7 +57,8 @@ public class PublicationService extends BaseService<Publication> {
         Publication publication = new Publication();
         publication.setUserId(user.getId());
         publication.setItemId(item.getId());
-        finalStateMachine.moveToState(publication, PublicationAction.CREATE);
+        publication = finalStateMachine.moveToState(publication, PublicationAction.EDIT);
+        publication = finalStateMachine.moveToState(publication, PublicationAction.CREATE);
         witbHttpClient.sendMessage("http://whoistobuy-telegram:8085/api/v1/telegram-notification/");
         this.save(publication);
         return publication;
@@ -85,6 +90,16 @@ public class PublicationService extends BaseService<Publication> {
         publication.setPublicationState(PublicationState.ARCHIVED);
         return publication;
     }
+
+    /**
+     * Создание публикации с товаром начинается с черновика. Публикация приобретает статус "Черновик/DRAFT".
+     */
+    public Publication draftPublication(String username) {
+        Publication publication = new Publication();
+        publication.setPublicationState(PublicationState.ARCHIVED);
+        return publication;
+    }
+
 
     @Override
     public Publication beforeDelete(Publication entity) {
