@@ -3,7 +3,8 @@ package ru.alexeyrand.whoistobuystore.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import ru.alexeyrand.whoistobuybase.entities.BaseEntity;
-import ru.alexeyrand.whoistobuystore.enums.HistoryType;
+import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
+import ru.alexeyrand.whoistobuystore.enums.PublicationState;
 
 @Entity
 @Getter
@@ -22,6 +23,14 @@ public class History extends BaseEntity {
 
     @Column(name = "HISTORY_TYPE")
     @Enumerated(EnumType.STRING)
-    private ru.alexeyrand.whoistobuystore.enums.HistoryType HistoryType;
+    private PublicationState beforeState;
+
+    @Column(name = "HISTORY_TYPE")
+    @Enumerated(EnumType.STRING)
+    private PublicationState afterState;
+
+    @Column(name = "HISTORY_TYPE")
+    @Enumerated(EnumType.STRING)
+    private PublicationAction action;
 
 }

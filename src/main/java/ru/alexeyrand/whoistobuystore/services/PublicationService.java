@@ -13,7 +13,6 @@ import ru.alexeyrand.whoistobuybase.services.UserService;
 import ru.alexeyrand.whoistobuystore.entities.History;
 import ru.alexeyrand.whoistobuystore.entities.Item;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
-import ru.alexeyrand.whoistobuystore.enums.HistoryType;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
 import ru.alexeyrand.whoistobuystore.repositories.PublicationRepository;
@@ -103,11 +102,11 @@ public class PublicationService extends BaseService<Publication> {
 
     @Override
     public Publication beforeDelete(Publication entity) {
-        historyService.save(History.builder()
-                .HistoryType(HistoryType.DELETED)
-                .Description("Удален")
-                .publicationId(entity.getId())
-                .build());
+//        historyService.save(History.builder()
+//                .HistoryType(HistoryType.DELETED)
+//                .Description("Удален")
+//                .publicationId(entity.getId())
+//                .build());
         return entity;
     }
 
