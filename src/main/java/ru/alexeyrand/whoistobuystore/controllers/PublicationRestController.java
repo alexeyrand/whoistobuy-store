@@ -19,21 +19,27 @@ public class PublicationRestController extends BaseRestController<Publication> {
 
     private final PublicationService publicationService;
 
-    @PostMapping("/add/{username}")
-    public ResponseEntity<Publication> addPublication(Item itemDto, @PathVariable String username) {
-        Publication publication = publicationService.addPublication(itemDto, username);
+    @PostMapping("/create/{username}")
+    public ResponseEntity<Publication> createPublication(Item itemDto, @PathVariable String username) {
+        Publication publication = publicationService.createPublication(itemDto, username);
+        return ResponseEntity.ok().body(publication);
+    }
+
+    @GetMapping("/publish/{id}")
+    public ResponseEntity<Publication> publishPublication(@PathVariable Long id) {
+        Publication publication = publicationService.publishPublication(id);
         return ResponseEntity.ok().body(publication);
     }
 
     @GetMapping("/reject/{id}") //TODO
     public ResponseEntity<Publication> rejectPublication(@PathVariable Long id) {
-        Publication publication = publicationService.buyItemByPublicationId(id);
+        Publication publication = publicationService.rejectPublication(id);
         return ResponseEntity.ok().body(publication);
     }
 
-    @GetMapping("/buy/{id}")
+    @GetMapping("/pay/{id}")
     public ResponseEntity<Publication> buyPublication(@PathVariable Long id) {
-        Publication publication = publicationService.buyItemByPublicationId(id);
+        Publication publication = publicationService.payPublication(id);
         return ResponseEntity.ok().body(publication);
     }
 

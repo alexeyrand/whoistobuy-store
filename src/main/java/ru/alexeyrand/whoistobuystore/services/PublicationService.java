@@ -50,7 +50,7 @@ public class PublicationService extends BaseService<Publication> {
      * Создание публикации с товаром. Публикация приобретает статус "На проверке/REVIEW".
      */
     @Transactional
-    public Publication addPublication(Item itemDto, String username) {
+    public Publication createPublication(Item itemDto, String username) {
         User user = userService.findUserByUsername(username);
         Item item = itemService.save(itemDto);
         Publication publication = new Publication();
@@ -64,11 +64,22 @@ public class PublicationService extends BaseService<Publication> {
     }
 
     /**
+     * Проверка товара публикации администратором. Публикация приобретает статус "Опубликовано/PUBLISHED".
+     */
+    public Publication publishPublication(Long id) {
+        Publication publication = this.findById(id);
+        publication = finalStateMachine.moveToState(publication, PublicationAction.PUBLISH);
+        this.save(publication);
+        return publication;
+    }
+
+    /**
      * Покупка товара через публикацию пользователем. Публикация приобретает статус "Продано/SOLD".
      */
-    public Publication buyItemByPublicationId(Long id) {
+    public Publication payPublication(Long id) {
         Publication publication = this.findById(id);
-        publication.setPublicationState(PublicationState.SOLD);
+        publication = finalStateMachine.moveToState(publication, PublicationAction.PAY);
+        this.save(publication);
         return publication;
     }
 
@@ -78,6 +89,7 @@ public class PublicationService extends BaseService<Publication> {
     public Publication rejectPublication(Long id) {
         Publication publication = this.findById(id);
         publication.setPublicationState(PublicationState.REJECTED);
+        this.save(publication);
         return publication;
     }
 
@@ -86,7 +98,8 @@ public class PublicationService extends BaseService<Publication> {
      */
     public Publication archivePublication(Long id) {
         Publication publication = this.findById(id);
-        publication.setPublicationState(PublicationState.ARCHIVED);
+        publication = finalStateMachine.moveToState(publication, PublicationAction.ARCHIVE);
+        this.save(publication);
         return publication;
     }
 
@@ -95,18 +108,19 @@ public class PublicationService extends BaseService<Publication> {
      */
     public Publication draftPublication(String username) {
         Publication publication = new Publication();
-        publication.setPublicationState(PublicationState.ARCHIVED);
+        publication = finalStateMachine.moveToState(publication, PublicationAction.EDIT);
         return publication;
     }
 
 
     @Override
     public Publication beforeDelete(Publication entity) {
-//        historyService.save(History.builder()
-//                .HistoryType(HistoryType.DELETED)
-//                .Description("Удален")
-//                .publicationId(entity.getId())
-//                .build());
+        historyService.save(History.builder()
+                .afterState(entity.getState())
+                .beforeState(PublicationState.DELETED)
+                .Description("Удален")
+                .publicationId(entity.getId())
+                .build());
         return entity;
     }
 
