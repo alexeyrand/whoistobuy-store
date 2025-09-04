@@ -88,7 +88,7 @@ public class PublicationService extends BaseService<Publication> {
      */
     public Publication rejectPublication(Long id) {
         Publication publication = this.findById(id);
-        publication.setPublicationState(PublicationState.REJECTED);
+        publication = finalStateMachine.moveToState(publication, PublicationAction.REJECT);
         this.save(publication);
         return publication;
     }
