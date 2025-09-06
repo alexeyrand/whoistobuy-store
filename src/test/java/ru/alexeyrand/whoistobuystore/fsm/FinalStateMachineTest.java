@@ -19,7 +19,6 @@ import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
 import ru.alexeyrand.whoistobuystore.services.HistoryService;
-import ru.alexeyrand.whoistobuystore.services.PublicationService;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -46,7 +45,6 @@ public class FinalStateMachineTest {
         publication.setPublicationState(PublicationState.IDLE);
 
         fsm.setHistoricalService(historyService);
-
 
         Publication res = fsm.moveToState(publication, PublicationAction.EDIT);
         Assertions.assertEquals(PublicationState.DRAFT, res.getState());

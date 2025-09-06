@@ -21,15 +21,15 @@ public class History extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String Description;
 
-    @Column(name = "HISTORY_TYPE")
+    @Column(name = "BEFORE_STATE")
     @Enumerated(EnumType.STRING)
     private PublicationState beforeState;
 
-    @Column(name = "HISTORY_TYPE")
+    @Column(name = "AFTER_STATE_TYPE")
     @Enumerated(EnumType.STRING)
     private PublicationState afterState;
 
-    @Column(name = "HISTORY_TYPE")
+    @Column(name = "ACTION")
     @Enumerated(EnumType.STRING)
     private PublicationAction action;
 

@@ -4,6 +4,7 @@ import ru.alexeyrand.whoistobuybase.fsm.BaseStateMachineFactory;
 import ru.alexeyrand.whoistobuybase.fsm.FinalStateMachine;
 import ru.alexeyrand.whoistobuybase.fsm.InitializationStateAndAction;
 import ru.alexeyrand.whoistobuybase.fsm.State;
+import ru.alexeyrand.whoistobuybase.services.Historical;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
@@ -12,8 +13,8 @@ import java.util.List;
 
 public class PublicationStateMachineFactory extends BaseStateMachineFactory<PublicationState, PublicationAction, Publication> {
 
-    public PublicationStateMachineFactory(InitializationStateAndAction initializationStateAndAction) {
-        super(initializationStateAndAction);
+    public PublicationStateMachineFactory(InitializationStateAndAction initializationStateAndAction, Historical<PublicationState, PublicationAction> historicalService) {
+        super(initializationStateAndAction, historicalService);
     }
 
     @Override

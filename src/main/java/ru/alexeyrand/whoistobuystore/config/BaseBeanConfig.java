@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.alexeyrand.whoistobuybase.fsm.FinalStateMachine;
 import ru.alexeyrand.whoistobuybase.rest.WitbHttpClient;
+import ru.alexeyrand.whoistobuybase.services.Historical;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
@@ -21,9 +22,13 @@ public class BaseBeanConfig {
 
     @Bean
     public FinalStateMachine<PublicationState, PublicationAction, Publication> publicationStateMachine(
-            InitializationPublicationStateAndAction initializationPublicationStateAndAction) {
-        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(initializationPublicationStateAndAction);
-        return factory.createStateMachine();
+            InitializationPublicationStateAndAction initializationPublicationStateAndAction,
+            Historical<PublicationState, PublicationAction> historicalService) {
+        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(initializationPublicationStateAndAction, historicalService);
+        FinalStateMachine<PublicationState, PublicationAction, Publication> fsm = factory.createStateMachine();
+        fsm.setHistoricalService(historicalService);
+
+        return fsm;
     }
 
 }

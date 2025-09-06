@@ -25,6 +25,11 @@ import ru.alexeyrand.whoistobuystore.repositories.PublicationRepository;
 public class PublicationService extends BaseService<Publication> {
 
     private final   FinalStateMachine<PublicationState, PublicationAction, Publication> finalStateMachine;
+    private final PublicationRepository publicationRepository;
+    private final UserService userService;
+    private final ItemService itemService;
+    private final HistoryService historyService;
+    private final WitbHttpClient witbHttpClient;
 
     @PostConstruct
     private void createUser() {
@@ -40,11 +45,6 @@ public class PublicationService extends BaseService<Publication> {
         this.save(publication);
     }
 
-    private final PublicationRepository publicationRepository;
-    private final UserService userService;
-    private final ItemService itemService;
-    private final HistoryService historyService;
-    private final WitbHttpClient witbHttpClient;
 
     /**
      * Создание публикации с товаром. Публикация приобретает статус "На проверке/REVIEW".
@@ -58,7 +58,7 @@ public class PublicationService extends BaseService<Publication> {
         publication.setItemId(item.getId());
         publication = finalStateMachine.moveToState(publication, PublicationAction.EDIT);
         publication = finalStateMachine.moveToState(publication, PublicationAction.CREATE);
-        witbHttpClient.sendMessage("http://whoistobuy-telegram:8085/api/v1/telegram-notification/");
+//        witbHttpClient.sendMessage("http://whoistobuy-telegram:8085/api/v1/telegram-notification/");
         this.save(publication);
         return publication;
     }
