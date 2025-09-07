@@ -8,7 +8,6 @@ import ru.alexeyrand.whoistobuybase.services.Historical;
 import ru.alexeyrand.whoistobuystore.entities.Publication;
 import ru.alexeyrand.whoistobuystore.enums.PublicationAction;
 import ru.alexeyrand.whoistobuystore.enums.PublicationState;
-import ru.alexeyrand.whoistobuystore.fsm.InitializationPublicationStateAndAction;
 import ru.alexeyrand.whoistobuystore.fsm.PublicationStateMachineFactory;
 
 
@@ -21,14 +20,13 @@ public class BaseBeanConfig {
     }
 
     @Bean
-    public FinalStateMachine<PublicationState, PublicationAction, Publication> publicationStateMachine(
-            InitializationPublicationStateAndAction initializationPublicationStateAndAction,
-            Historical<PublicationState, PublicationAction> historicalService) {
-        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(initializationPublicationStateAndAction, historicalService);
-        FinalStateMachine<PublicationState, PublicationAction, Publication> fsm = factory.createStateMachine();
-        fsm.setHistoricalService(historicalService);
+    public FinalStateMachine<PublicationState, PublicationAction, Publication> publicationStateMachine(PublicationStateMachineFactory factory) {
 
-        return fsm;
+//        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(initializationPublicationStateAndAction, historicalService);
+//        FinalStateMachine<PublicationState, PublicationAction, Publication> fsm = factory.createStateMachine();
+//        fsm.setHistoricalService(historicalService);
+
+        return factory.createStateMachine();
     }
 
 }

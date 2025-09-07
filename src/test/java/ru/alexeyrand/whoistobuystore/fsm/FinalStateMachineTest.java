@@ -33,7 +33,7 @@ public class FinalStateMachineTest {
 
     @BeforeEach
     public void setUp() {
-        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(new InitializationPublicationStateAndAction());
+        PublicationStateMachineFactory factory = new PublicationStateMachineFactory();
         fsm = factory.createStateMachine();
     }
 
