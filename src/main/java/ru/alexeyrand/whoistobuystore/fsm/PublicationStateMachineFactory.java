@@ -15,6 +15,7 @@ import java.util.List;
 @Component
 public class PublicationStateMachineFactory extends BaseStateMachineFactory<PublicationState, PublicationAction, Publication> {
 
+
     @Override
     public FinalStateMachine<PublicationState, PublicationAction, Publication> defineStateMachine() {
         FinalStateMachine<PublicationState, PublicationAction, Publication> finalStateMachine = new FinalStateMachine<>();

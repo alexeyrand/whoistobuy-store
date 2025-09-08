@@ -21,12 +21,9 @@ public class BaseBeanConfig {
 
     @Bean
     public FinalStateMachine<PublicationState, PublicationAction, Publication> publicationStateMachine(PublicationStateMachineFactory factory) {
-
-//        PublicationStateMachineFactory factory = new PublicationStateMachineFactory(initializationPublicationStateAndAction, historicalService);
-//        FinalStateMachine<PublicationState, PublicationAction, Publication> fsm = factory.createStateMachine();
-//        fsm.setHistoricalService(historicalService);
-
-        return factory.createStateMachine();
+        FinalStateMachine<PublicationState, PublicationAction, Publication> fsm = factory.createStateMachine();
+        fsm.setHistorical(true);
+        return fsm;
     }
 
 }

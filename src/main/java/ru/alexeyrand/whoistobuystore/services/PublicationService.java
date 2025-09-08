@@ -56,7 +56,6 @@ public class PublicationService extends BaseService<Publication> {
         Publication publication = new Publication();
         publication.setUserId(user.getId());
         publication.setItemId(item.getId());
-        publication = finalStateMachine.moveToState(publication, PublicationAction.EDIT);
         publication = finalStateMachine.moveToState(publication, PublicationAction.CREATE);
 //        witbHttpClient.sendMessage("http://whoistobuy-telegram:8085/api/v1/telegram-notification/");
         this.save(publication);
