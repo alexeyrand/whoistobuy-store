@@ -58,5 +58,8 @@ public class FinalStateMachineTest {
         Assertions.assertEquals(PublicationState.REVIEW, res.getState());
         res = fsm.moveToState(publication, PublicationAction.PUBLISH);
         Assertions.assertEquals(PublicationState.PUBLISHED, res.getState());
+
+        fsm.setHistorical(true);
+        Assertions.assertDoesNotThrow(() -> fsm.moveToState(publication, PublicationAction.RESERVE));
     }
 }
